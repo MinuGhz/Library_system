@@ -6,7 +6,7 @@
 
 class Member : public Person{
 
-private:
+protected:
     string MemberID;       /*we considered that everyone has a general ID(ID in Person class)
                            and has a specific ID(staff/member/etc..)*/
     Book book[10];         /*We considered that each member can only borrow
