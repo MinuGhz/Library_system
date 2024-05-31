@@ -7,4 +7,6 @@ add_executable(Library_system main.cpp
         Book.cpp
         Book.h
         VIPbook.cpp
-        VIPbook.h)
+        VIPbook.h
+        Person.cpp
+        Person.h)
