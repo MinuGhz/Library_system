@@ -1,0 +1,3 @@
+D:/C++/code/ap/seri5/New folder/Library_system/cmake-build-debug/CMakeFiles/Library_system.dir
+D:/C++/code/ap/seri5/New folder/Library_system/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/C++/code/ap/seri5/New folder/Library_system/cmake-build-debug/CMakeFiles/rebuild_cache.dir
