@@ -13,4 +13,6 @@ add_executable(Library_system main.cpp
         Staff.cpp
         Staff.h
         Member.cpp
-        Member.h)
+        Member.h
+        VIPmember.cpp
+        VIPmember.h)
