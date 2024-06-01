@@ -15,7 +15,7 @@ public:
     VIPmember(string,string,string , int);
     VIPmember(const VIPmember&);
 
-    void set_vip(string,string,string,int);
+    void set_vip(string,string,string,int=2);
     void set_vip_sub(int);
 
     void get_vip() const;

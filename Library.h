@@ -25,11 +25,17 @@ public:
     void addMember(const Person&);
     void addVIPMember(const Person&);
     void makeVIP(const Member&);
+    void addStaff(const Person&);
+    void addBook(const Book&);
+    void addVIPbook(const Book&);
 
 
     bool search_memberID(string);
     bool search_staffID(string);
     bool search_bookID(string);
+    bool search_vipbookID(string);
+    bool search_vipmember(const Member&);
+    bool search_vipbook(const Book&);
 
 
 };
