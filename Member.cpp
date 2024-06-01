@@ -62,11 +62,12 @@ void Member::return_book(Book &borrowed) {
 }
 
 ostream& operator << (ostream& output , const Member& someone){
-    output<<"StaffID: "<<someone.get_memberID()<<endl;
+    output<<"MemberID: "<<someone.get_memberID()<<endl;
     output<<"name: "<<someone.get_person_name()<<", ID: ";
     output<<someone.get_person_ID()<<endl;
     output<<"Borrowed books: \n";
     for(int i=0 ; i<10 ; i++) output<<someone.book[i];
+    output<<endl;
 
     return output;
 }
