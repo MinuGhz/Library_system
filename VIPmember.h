@@ -20,6 +20,9 @@ public:
 
     void get_vip() const;
     int get_vip_sub() const;
+
+    friend ostream& operator << (ostream& , const VIPmember&);
+    friend istream& operator >> (istream& , VIPmember&);
 };
 
 
