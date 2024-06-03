@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    //what are you looking for here? LOL
+
 Person ali("ali" , "1");
 Person mohammad("mohammad" , "2");
 Person amir("amir" , "3");
