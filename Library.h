@@ -29,6 +29,15 @@ public:
     void addBook(const Book&);
     void addVIPbook(const Book&);
 
+    void removeMember(Person&);
+    void removeVIPMember(Person&);
+    void removeStaff(Person&);
+    void removeBook(Book&);
+    void removeVIPBook(Book&);
+
+    void borrowBook(string , string);
+    void returnBook(string , string);
+
 
     bool search_memberID(string);
     bool search_staffID(string);
