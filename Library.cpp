@@ -212,7 +212,7 @@ void Library::removeMember(Person &ex) {
 
 
 
-void Library::removeVIPMember(Person &ex) {
+void Library::removeVIPMember(const Person &ex) {
     for(int i=0 ; i<1000 ; i++){
         if(vipmembers[i].get_person_ID() == ex.get_person_ID()){
             vipmembers[i].set_vip("","","");
@@ -223,8 +223,90 @@ void Library::removeVIPMember(Person &ex) {
 }
 /**********************************************************************************************************************/
 
+void Library::borrowBook(string memberid, string bookid) {
+    if(!search_memberID(memberid)) {
+        cout<<"You can't borrow books because you do not have an account!\n";
+        return;
+    }
+
+    if(!search_bookID(bookid) && !search_vipbookID(bookid)){
+        cout<<"Sorry! We don't have this book in the library.\n";
+        return;
+    }
+
+    for(int i=0 ; i<100 ; i++){
+        if(vipbooks[i].get_book_ID() == bookid){
+            if(vipbooks[i].get_book_condition() == "borrowed"){
+                cout<<"Sorry! The book is currently unavailable!\n";
+                return;
+            }
+            else{
+                for(int j=0 ; j<1000 ; j++){
+                    if(vipmembers[j].get_memberID() == memberid){
+                        if(vipmembers[j].set_book(vipbooks[i])) {
+                            int sub = vipmembers[j].get_vip_sub() - 1;
+                            if (sub == 0) removeVIPMember(memberid);
+                            else vipmembers[j].set_vip_sub(sub);
+                            return;
+                        }
+                    }
 
 
+                }
+                    cout<<"Sorry! You do not have access to this book because you are not a VIP member!\n";
+                    return;
+            }
+        }
+    }
+
+    for(int i=0 ; i<10000 ; i++){
+        if(Books[i].get_book_ID() == bookid){
+            if(Books[i].get_book_condition() == "borrowed"){
+                cout<<"Sorry! The book is currently unavailable!\n";
+                return;
+            }
+            else{
+                for(int j=0 ; j<1000 ; j++){
+                    if(members[j].get_memberID() == memberid){
+                        members[j].set_book(Books[i]);
+                    }
+                }
+            }
+        }
+    }
+
+}
+/**********************************************************************************************************************/
+
+void Library::returnBook(string memberid, string bookid) {
+
+    int number;
+
+    for(int i=0 ; i<1000 ; i++){
+        if(members[i].get_memberID() == memberid){
+            number = i;
+            break;
+        }
+    }
+
+    for(int i=0 ; i<10000 ; i++) {
+        if (Books[i].get_book_ID() == bookid) {
+            members[number].return_book(Books[i]);
+            return;
+
+        }
+    }
+
+    for(int i=0 ; i<100 ; i++){
+        if(vipbooks[i].get_book_ID() == bookid){
+            members[number].return_book(vipbooks[i]);
+            return;
+        }
+    }
+
+       cout<<"Something went wrong\n";
+
+}
 /**********************************************************************************************************************/
 
 
@@ -246,6 +328,14 @@ bool Library::search_bookID(string ID) {
     for(int i=0 ; i<10000 ; i++){
         if(Books[i].get_book_ID() == ID) return true;
     }
+    return false;
+}
+
+bool Library::search_vipbookID(string ID) {
+    for(int i=0 ; i<100 ; i++){
+        if(vipbooks[i].get_book_ID() == ID) return true;
+    }
+
     return false;
 }
 

@@ -30,7 +30,7 @@ public:
     void addVIPbook(const Book&);
 
     void removeMember(Person&);
-    void removeVIPMember(Person&);
+    void removeVIPMember(const Person&);
     void removeStaff(Person&);
     void removeBook(Book&);
     void removeVIPBook(Book&);
