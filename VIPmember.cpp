@@ -8,9 +8,9 @@ VIPmember::VIPmember() : Member(){
     RemainingBooks = 2;
 }
 
-VIPmember::VIPmember(string name , string ID , string memberID , int remaining=2):
+VIPmember::VIPmember(string name , string ID , string memberID):
         Member(name,ID,memberID){
-    RemainingBooks = remaining;
+    RemainingBooks = 2;
 }
 
 VIPmember::VIPmember(const VIPmember &vip) {
@@ -23,13 +23,13 @@ VIPmember::VIPmember(const VIPmember &vip) {
 }
 
 
-void VIPmember::set_vip(string name, string ID, string MemberID, int subs) {
+void VIPmember::set_vip(string name, string ID, string MemberID) {
     set_member(name,ID,MemberID);
-    RemainingBooks = subs;
+    RemainingBooks = 2;
 }
 
 
-inline void VIPmember::set_vip_sub(int subs) {
+void VIPmember::set_vip_sub(int subs) {
     RemainingBooks = subs;
 }
 
@@ -50,7 +50,9 @@ ostream& operator << (ostream& output , const VIPmember& vip){
     output<<"Borrowed books: \n";
     for(int i=0 ; i<10 ; i++) output<<vip.book[i];
     output<<endl;
+    output<<"Remaining vip sub: ";
     output<<vip.get_vip_sub();
+    output<<endl;
 
     return output;
 }
@@ -67,7 +69,8 @@ istream& operator >> (istream& input , VIPmember& vip){
     cout<<"Enter the number of vip ticket: ";
     input>>ticket;
 
-    vip.set_vip(name, ID, MemberID< ticket);
+    vip.set_vip(name, ID, MemberID);
+    vip.set_vip_sub(ticket);
 
     return input;
 }

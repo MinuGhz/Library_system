@@ -3,7 +3,9 @@
 using namespace std;
 
 
-Staff::Staff() : Person(){}
+Staff::Staff() : Person(){
+    StaffID = "0";
+}
 
 Staff::Staff(string name, string ID , string StaffID) : Person(name,ID)
 {this->StaffID = StaffID;}

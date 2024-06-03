@@ -4,62 +4,85 @@
 using namespace std;
 
 Member::Member() : Person(){
-    MemberID = "";
+    book = new Book[10];
+    MemberID = "0";
 }
 
 Member::Member(string name, string ID , string MemberID) : Person(name,ID)
-{this->MemberID = MemberID;}
+{   book = new Book[10];
+    this->MemberID = MemberID;}
+
+Member::Member(const Person& newMember) : Person(newMember){
+    book = new Book[10];
+    MemberID = "0";
+}
 
 Member::Member(const Member& someone){
     MemberID = someone.MemberID;
     name = someone.name;
     ID = someone.ID;
+    book = new Book[10];
     for(int i=0 ; i<10 ; i++){
         book[i] = someone.book[i];
     }
 }
 
-void Member::set_member(string name, string ID, string MemberID) {
-    this->name = name;
-    this->ID = ID;
-    this->MemberID = MemberID;
+void Member::set_member(string n, string Id, string MemID) {
+    name = n;
+    ID = Id;
+    MemberID = MemID;
 }
 
-void Member::set_book(Book &asked) {
+Member::~Member(){
+    delete []book;
+}
+
+bool Member::set_book(Book &asked) {
     int i;
-    for(i=0 ; i<10 ; i++){
-        if(book[i].get_book_name() == asked.get_book_name())
-        {cout<<"The book is currently on loan to this member!\n";
-            break;}
-        if(book[i].get_book_name() == ""){
-            book[i] = asked;
-            break;
+    for(i=0 ; i<10 ; i++) {
+        if (book[i].get_book_name() == asked.get_book_name()) {
+            cout << "The book is currently on loan to this member!\n";
+            return false;
         }
     }
-    if(i==10) {
+    for(int i=0 ; i<10 ; i++){
+        if(book[i].get_book_name() == "0"){
+            asked.change_condition();
+            book[i] = asked;
+            return true;
+        }
+    }
+
         cout<<"this member can't borrow any other book!";
         cout<<"(because they have currently borrowed 10 book)\n";
-    }
+
+        return false;
 }
+
 
 void Member::get_member() const{
     cout<<"MemberID: "<<MemberID<<endl;
     get_person();
 }
 
-inline string Member::get_memberID() const{
+string Member::get_memberID() const{
     return MemberID;
 }
 
 void Member::return_book(Book &borrowed) {
     int i;
+
     for(i=0 ; i<10 ; i++){
-        if(book[i].get_book_ID() == borrowed.get_book_ID()) {
-            book[i].set_book("" , "" , false);
+
+        if(book[i].get_book_name() == borrowed.get_book_name()) {
+            book[i].set_book("0" , "0" , false);
+            borrowed.change_condition();
+            return;
         }
     }
-    if(i==10) cout<<"The book was not found in Member book list!\n";
+    cout<<"The book was not found in Member book list!\n";
 }
+
 
 ostream& operator << (ostream& output , const Member& someone){
     output<<"MemberID: "<<someone.get_memberID()<<endl;

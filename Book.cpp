@@ -4,7 +4,7 @@
 using namespace std;
 
 Book::Book(){
-    name = "" ; bookID = "";
+    name = "0" ; bookID = "0";
     isBorrowed = false;
 }
 
@@ -43,9 +43,14 @@ string Book::get_book_condition() const {
     else return "available";
 }
 
+void Book::change_condition() {
+    if(isBorrowed == false) isBorrowed = true;
+    else isBorrowed= false;
+}
+
 ostream& operator << (ostream& output , const Book& book){
     output<<"name: "<<book.get_book_name()<<", bookID: "<<book.get_book_ID();
-    output<<"condition: "<<book.get_book_condition()<<endl;
+    output<<", condition: "<<book.get_book_condition()<<endl;
 
     return output;
 }

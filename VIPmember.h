@@ -12,10 +12,10 @@ private:
 
 public:
     VIPmember();
-    VIPmember(string,string,string , int);
+    VIPmember(string,string,string);
     VIPmember(const VIPmember&);
 
-    void set_vip(string,string,string,int=2);
+    void set_vip(string,string,string);
     void set_vip_sub(int);
 
     void get_vip() const;

@@ -3,6 +3,24 @@
 
 using namespace std;
 
+Library::Library() {
+    cout<<"Library!!!!!!!\n";
+    Books = new Book[10000];
+    vipbooks = new VIPbook[100];
+    members = new Member[1000];
+    vipmembers = new VIPmember[1000];
+    staffs = new Staff[30];
+
+}
+
+Library::~Library(){
+    cout<<"~ is running!\n";
+    delete []Books;
+    delete []vipbooks;
+    delete []members;
+    delete []vipmembers;
+    delete []staffs;
+}
 
 void Library::addMember(const Person &member) {
     cout<<"Enter The new Member ID: ";
@@ -19,7 +37,7 @@ void Library::addMember(const Person &member) {
 
     int i;
     for(i=0 ; i<1000 ; i++){
-        if(members[i].get_person_name() == "") {
+        if(members[i].get_person_name() == "0") {
             members[i].set_member(name,ID , id);
             return;
         }
@@ -29,43 +47,56 @@ void Library::addMember(const Person &member) {
 }
 
 void Library::addVIPMember(const Person &member) {
-    cout<<"Enter The new Member ID: ";
+    cout<<"Enter The new VIP Member ID: ";
     string id;
     cin>>id;
 
         int i , j;
         for(i=0 ; i<1000 ; i++){
-            if(members[i].get_person_name() == "") j=i;
             if(members[i].get_memberID() == id) {
                 makeVIP(members[i]);
                   return;
             }
         }
 
+
     string name = member.get_person_name();
     string ID = member.get_person_ID();
 
-    members[j].set_member(name,ID,id);
-    makeVIP(members[j]);
+    for(j=0 ; j<1000 ; j++){
 
-    return;
+        if(members[j].get_person_name() == "0"){
+        members[j].set_member(name,ID,id);
+        makeVIP(members[j]);
+
+       return;
+        }
+
+    }
 
 }
 
 
 void Library::makeVIP(const Member &newvip) {
-
     if(search_vipmember(newvip)) return;
-    else{
-        string name = newvip.get_person_name();
-        string ID = newvip.get_person_ID();
-        string MemberId = newvip.get_memberID();
 
-    for(int i=0 ; i<1000 ; i++)
-        if(vipmembers[i].get_memberID() == ""){
-            vipmembers[i].set_vip(name,ID,MemberId);
-        }
+    int j;
+    for(j=0 ; j<1000 ; j++){
+        if(members[j].get_person_ID() == newvip.get_person_ID()) break;
     }
+
+
+        string name = members[j].get_person_name();
+        string ID = members[j].get_person_ID();
+        string memID = members[j].get_memberID();
+        for(int i=0 ; i<1000 ; i++){
+            if(vipmembers[i].get_person_name() == "0"){
+                vipmembers[i].set_member(name,ID,memID);
+                vipmembers[i].set_vip_sub(2);
+                return;
+            }
+        }
+
 }
 
 void Library::addStaff(const Person &newstaff) {
@@ -84,7 +115,7 @@ void Library::addStaff(const Person &newstaff) {
 
     int i;
     for(i=0 ; i<30 ; i++){
-        if(staffs[i].get_person_name() == "") {
+        if(staffs[i].get_person_name() == "0") {
             staffs[i].set_staff(name,ID , id);
             return;
         }
@@ -96,14 +127,6 @@ void Library::addStaff(const Person &newstaff) {
 
 void Library::addBook(const Book &newbook) {
 
-    cout<<"Enter The new Book ID: ";
-    string id;
-    cin>>id;
-
-    while(search_bookID(id)){
-        cout<<"The ID is now in use! please try another ID: ";
-        cin>>id;
-    }
 
     if(search_vipbook(newbook)){
         cout<<"The book that you are trying to add is a VIP book!\n";
@@ -117,9 +140,10 @@ void Library::addBook(const Book &newbook) {
 
     int i;
     for(i=0 ; i<10000 ; i++){
-        if(Books[i].get_book_ID() == "") {
+        if(Books[i].get_book_ID() == "0") {
             if(condition == "available") Books[i].set_book(name,ID,false);
             else Books[i].set_book(name,ID,true);
+            cout<<newbook.get_book_name()<<" has been successfully added!\n";
             return;
         }
     }
@@ -137,7 +161,7 @@ void Library::addVIPbook(const Book &newvip) {
    }
 
    if(search_vipbook(newvip)){
-       cout<<"The book is currently on the VIP list\n";
+       cout<<newvip.get_book_name()<<" is currently on the VIP list\n";
        return;
    }
 
@@ -146,10 +170,10 @@ void Library::addVIPbook(const Book &newvip) {
     string condition = newvip.get_book_condition();
 
    for(int i=0 ; i<100 ; i++){
-       if(vipbooks[i].get_book_name() == ""){
+       if(vipbooks[i].get_book_name() == "0"){
            if(condition == "available") vipbooks[i].set_book(name,ID,false);
            else vipbooks[i].set_book(name,ID,true);
-           cout<<"The book has been successfully added!\n";
+           cout<<newvip.get_book_name()<<" has been successfully added!\n";
            return;
        }
    }
@@ -163,30 +187,30 @@ void Library::addVIPbook(const Book &newvip) {
 void Library::removeBook(Book &book) {
      for(int i=0 ; i<10000 ; i++){
          if(Books[i].get_book_ID() == book.get_book_ID()){
-             Books[i].set_book("","",false);
-             cout<<"The book has been successfully deleted!\n";
+             Books[i].set_book("0","0",false);
+             cout<<book.get_book_name()<<" has been successfully deleted!\n";
              return;
          }
      }
-     cout<<"The book was not found!\n";
+     cout<<book.get_book_name()<<" was not found!\n";
 }
 
 void Library::removeVIPBook(Book &book) {
     for(int i=0 ; i<100 ; i++){
         if(vipbooks[i].get_book_ID() == book.get_book_ID()){
-            vipbooks[i].set_book("" , "" , false);
-            cout<<"The book has been successfully deleted from VIP list!\n";
+            vipbooks[i].set_book("0" , "0" , false);
+            cout<<book.get_book_name()<<" has been successfully deleted from VIP list!\n";
             return;
         }
     }
-    cout<<"The book was not found!\n";
+    cout<<book.get_book_name()<<" was not found!\n";
 }
 
 void Library::removeStaff(Person &ex) {
     for(int i=0 ; i<30 ; i++){
         if(staffs[i].get_person_ID() == ex.get_person_ID()){
-            staffs[i].set_staff("","","");
-            cout<<"the staff has been successfully removed!\n";
+            staffs[i].set_staff("0","0","0");
+            cout<<ex.get_person_name()<<" has been successfully removed from staff list!\n";
             return;
         }
     }
@@ -199,8 +223,8 @@ void Library::removeMember(Person &ex) {
             if(search_vipmember(members[i])){
                 removeVIPMember(ex);
             }
-            members[i].set_member("","","");
-            cout<<"The member has been successfully removed!\n";
+            members[i].set_member("0","0","0");
+            cout<<ex.get_person_name()<<" has been successfully removed from member list!\n";
 
                 return;
             }
@@ -215,8 +239,8 @@ void Library::removeMember(Person &ex) {
 void Library::removeVIPMember(const Person &ex) {
     for(int i=0 ; i<1000 ; i++){
         if(vipmembers[i].get_person_ID() == ex.get_person_ID()){
-            vipmembers[i].set_vip("","","");
-            cout<<"The VIP member has been successfully removed from VIP list!\n";
+            vipmembers[i].set_vip("0","0","0");
+            cout<<ex.get_person_name()<<" has been successfully removed from VIP list!\n";
         }
     }
     cout<<"The VIP member was not found!\n";
@@ -237,13 +261,18 @@ void Library::borrowBook(string memberid, string bookid) {
     for(int i=0 ; i<100 ; i++){
         if(vipbooks[i].get_book_ID() == bookid){
             if(vipbooks[i].get_book_condition() == "borrowed"){
-                cout<<"Sorry! The book is currently unavailable!\n";
+                cout<<"Sorry!"<<vipbooks[i].get_book_name()<<" is currently unavailable!\n";
                 return;
             }
             else{
                 for(int j=0 ; j<1000 ; j++){
                     if(vipmembers[j].get_memberID() == memberid){
-                        if(vipmembers[j].set_book(vipbooks[i])) {
+
+                        string name = vipbooks[i].get_book_name();
+                        string ID = vipbooks[i].get_book_ID();
+                        Book temporaryobj(name,ID , true);
+
+                        if(vipmembers[j].set_book(temporaryobj)) {
                             int sub = vipmembers[j].get_vip_sub() - 1;
                             if (sub == 0) removeVIPMember(memberid);
                             else vipmembers[j].set_vip_sub(sub);
@@ -253,7 +282,7 @@ void Library::borrowBook(string memberid, string bookid) {
 
 
                 }
-                    cout<<"Sorry! You do not have access to this book because you are not a VIP member!\n";
+                    cout<<"'"<<memberid<<"' Sorry! You do not have access to this book because you are not a VIP member!\n";
                     return;
             }
         }
@@ -282,27 +311,34 @@ void Library::returnBook(string memberid, string bookid) {
 
     int number;
 
-    for(int i=0 ; i<1000 ; i++){
-        if(members[i].get_memberID() == memberid){
-            number = i;
-            break;
+    for(int j=0 ; j<1000 ; j++){
+        if(members[j].get_memberID() == memberid){
+            for(int i=0 ; i<100 ; i++){
+                if(vipbooks[i].get_book_ID() == bookid){
+                    string name = vipbooks[i].get_book_name();
+                    string ID = vipbooks[i].get_book_ID();
+
+                    Book temporary(name , ID , true);
+                    members[j].return_book(temporary);
+
+                    vipbooks[i].change_condition();
+
+                    return;
+                }
+            }
+
+            for(int i=0 ; i<10000 ; i++) {
+                if (Books[i].get_book_ID() == bookid) {
+                    members[number].return_book(Books[i]);
+                    return;
+
+                }
+            }
         }
     }
 
-    for(int i=0 ; i<10000 ; i++) {
-        if (Books[i].get_book_ID() == bookid) {
-            members[number].return_book(Books[i]);
-            return;
 
-        }
-    }
 
-    for(int i=0 ; i<100 ; i++){
-        if(vipbooks[i].get_book_ID() == bookid){
-            members[number].return_book(vipbooks[i]);
-            return;
-        }
-    }
 
        cout<<"Something went wrong\n";
 
@@ -342,7 +378,7 @@ bool Library::search_vipbookID(string ID) {
 
 bool Library::search_vipmember(const Member &someone) {
     for(int i=0 ; i<1000 ; i++){
-        if(vipmembers[i].get_memberID() == someone.get_memberID()) return true;
+        if(vipmembers[i].get_person_ID() == someone.get_person_ID()) return true;
     }
 
     return false;
@@ -354,4 +390,9 @@ bool Library::search_vipbook(const Book &isVIP) {
             return true;
 
     return false;
+}
+
+
+void Library::show(){
+    cout<<vipmembers[0];
 }

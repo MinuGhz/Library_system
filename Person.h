@@ -14,6 +14,7 @@ protected:
 public:
     Person();
     Person(string,string);
+    Person(string);
     Person(const Person&);
 
     void set_person(string,string);

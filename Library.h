@@ -14,14 +14,19 @@ class Library {
 
 private:
     string name;
-    Staff staffs[30];  /*we considered that the library doesn't need more than 30 staffs at a time*/
-    Member members[1000];  /*we desgined a 1000 members system for this library*/
-    VIPmember vipmembers[1000];
-    Book Books[10000];
-    VIPbook vipbooks[100];
+    Staff *staffs;  /*we considered that the library doesn't need more than 30 staffs at a time*/
+    Member *members;  /*we desgined a 1000 members system for this library*/
+    VIPmember *vipmembers;
+    Book *Books;
+    VIPbook *vipbooks;
 
 
 public:
+    Library();
+    ~Library();
+
+    void show();
+
     void addMember(const Person&);
     void addVIPMember(const Person&);
     void makeVIP(const Member&);

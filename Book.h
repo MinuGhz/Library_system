@@ -23,6 +23,7 @@ public:
     string get_book_name() const;
     string get_book_ID() const;
     string get_book_condition() const;
+    void change_condition();
 
 
     friend ostream& operator << (ostream& , const Book&);

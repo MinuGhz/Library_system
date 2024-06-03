@@ -4,12 +4,17 @@ using namespace std;
 
 
 Person::Person() {
-    name = "" ; ID = "";
+    name = "0" ; ID = "0";
 }
 
 Person::Person(string name, string ID) {
     this->name = name;
     this->ID = ID;
+}
+
+Person::Person(string id) {
+    name = "0";
+    ID = id;
 }
 
 Person::Person(const Person &someone) {
