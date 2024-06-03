@@ -311,34 +311,35 @@ void Library::returnBook(string memberid, string bookid) {
 
     int number;
 
-    for(int j=0 ; j<1000 ; j++){
-        if(members[j].get_memberID() == memberid){
-            for(int i=0 ; i<100 ; i++){
-                if(vipbooks[i].get_book_ID() == bookid){
-                    string name = vipbooks[i].get_book_name();
-                    string ID = vipbooks[i].get_book_ID();
-
-                    Book temporary(name , ID , true);
-                    members[j].return_book(temporary);
-
-                    vipbooks[i].change_condition();
-
-                    return;
-                }
-            }
-
-            for(int i=0 ; i<10000 ; i++) {
-                if (Books[i].get_book_ID() == bookid) {
-                    members[number].return_book(Books[i]);
-                    return;
-
-                }
-            }
+    for(int i=0 ; i<1000 ; i++){
+        if(members[i].get_memberID() == memberid){
+            number = i;
+            break;
         }
     }
 
 
+    for(int i=0 ; i<100 ; i++){
+        if(vipbooks[i].get_book_ID() == bookid){
+            string name = vipbooks[i].get_book_name();
+            string ID = vipbooks[i].get_book_ID();
 
+            Book temporary(name , ID , true);
+            members[number].return_book(temporary);
+
+            vipbooks[i].change_condition();
+
+            return;
+        }
+    }
+
+    for(int i=0 ; i<10000 ; i++) {
+        if (Books[i].get_book_ID() == bookid) {
+            members[number].return_book(Books[i]);
+            return;
+
+        }
+    }
 
        cout<<"Something went wrong\n";
 
@@ -391,5 +392,4 @@ bool Library::search_vipbook(const Book &isVIP) {
 
     return false;
 }
-
 
