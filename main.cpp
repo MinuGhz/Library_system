@@ -1,9 +1,3 @@
-#include <iostream>
-#include "Book.h"
-#include "VIPbook.h"
-#include "Member.h"
-#include "VIPmember.h"
-#include "Staff.h"
 
 #include "Library.h"
 
