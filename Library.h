@@ -25,7 +25,7 @@ public:
     Library();
     ~Library();
 
-    void show();
+
 
     void addMember(const Person&);
     void addVIPMember(const Person&);

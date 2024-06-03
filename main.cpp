@@ -47,9 +47,6 @@ ourLibrary.addBook(kingLear);
 ourLibrary.addVIPbook(coriolanus);
 ourLibrary.addVIPbook(pricles);
 
-/*ourLibrary.show();
-ourLibrary.borrowBook("3" , "5th");
-ourLibrary.show();*/
 
 ourLibrary.borrowBook("2" , "1st");
 ourLibrary.borrowBook("1" , "2nd");

@@ -393,6 +393,3 @@ bool Library::search_vipbook(const Book &isVIP) {
 }
 
 
-void Library::show(){
-    cout<<vipmembers[0];
-}
